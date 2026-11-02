@@ -16,6 +16,7 @@ public class PriceFormatterTest {
     void spaceBetweenThousands() {
         PriceFormatter formatter = new PriceFormatter();
         assertEquals("123 456 €", formatter.formatPrice(123456));
+        assertEquals("123 456,45 €", formatter.formatPrice(123456.45));
         assertEquals("123 456 789 €", formatter.formatPrice(123456789));
     }
 
@@ -29,12 +30,17 @@ public class PriceFormatterTest {
     void decimalPartIsTwoDigits() {
         PriceFormatter formatter = new PriceFormatter();
         assertEquals("123,12 €", formatter.formatPrice(123.1211111));
+        assertEquals("123,30 €", formatter.formatPrice(123.3));
     }
 
     @Test
     void decimalPartIsOmitted() {
         PriceFormatter formatter = new PriceFormatter();
         assertEquals("123 €", formatter.formatPrice(123.00));
+        assertEquals("123 €", formatter.formatPrice(123.0));
+        assertEquals("123 €", formatter.formatPrice(123.0000));
+        assertEquals("123 €", formatter.formatPrice(122.999));
+        assertEquals("123 €", formatter.formatPrice(123.002));
     }
 
     @Test
