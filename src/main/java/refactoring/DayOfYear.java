@@ -40,7 +40,6 @@ public class DayOfYear {
          * However, you are *not* allowed to change the method signature (name,
          * parameters, return type).
          */
-
         if (month == 2) {
             dayOfMonth += 31;
         } else if (month == 3) {
