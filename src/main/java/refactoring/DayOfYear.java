@@ -1,5 +1,8 @@
 package refactoring;
 
+import java.time.Month;
+import java.time.Year;
+
 /**
  * Smelly Example #1
  *
@@ -40,30 +43,17 @@ public class DayOfYear {
          * However, you are *not* allowed to change the method signature (name,
          * parameters, return type).
          */
-        if (month == 2) {
-            dayOfMonth += 31;
-        } else if (month == 3) {
-            dayOfMonth += 59;
-        } else if (month == 4) {
-            dayOfMonth += 90;
-        } else if (month == 5) {
-            dayOfMonth += 31 + 28 + 31 + 30;
-        } else if (month == 6) {
-            dayOfMonth += 31 + 28 + 31 + 30 + 31;
-        } else if (month == 7) {
-            dayOfMonth += 31 + 28 + 31 + 30 + 31 + 30;
-        } else if (month == 8) {
-            dayOfMonth += 31 + 28 + 31 + 30 + 31 + 30 + 31;
-        } else if (month == 9) {
-            dayOfMonth += 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31;
-        } else if (month == 10) {
-            dayOfMonth += 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30;
-        } else if (month == 11) {
-            dayOfMonth += 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31;
-        } else if (month == 12) {
-            dayOfMonth += 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31 + 31;
-        }
+        int dayOfYear = 0;
+        Year y = Year.of(year);
+        boolean leapYear = y.isLeap();
+        Month lastMonth = Month.of(month);
 
-        return dayOfMonth;
+        for (int i = 1; i < lastMonth.getValue(); i++) {
+            Month currentMonth = Month.of(i);
+            dayOfYear += currentMonth.length(leapYear);
+        }
+        dayOfYear += dayOfMonth;
+
+        return dayOfYear;
     }
 }
